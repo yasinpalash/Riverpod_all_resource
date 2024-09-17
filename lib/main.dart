@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpodtest/feature/home_screen/home_screen.dart';
 
 final nameProvider = Provider<String>((ref) {
   return "Hello Yasin";
@@ -35,26 +36,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const HomeScreen(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Riverpod Provider"),
-      ),
-      body: Center(
-        child: Consumer(builder: (context,ref,child){
-          final name=ref.watch(nameProvider);
-          return Text(name);
-        }),
-      ),
-    );
-  }
-}
