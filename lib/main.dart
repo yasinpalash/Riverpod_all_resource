@@ -30,6 +30,16 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final counter = ref.watch(counterProvider);
+
+    ref.listen(counterProvider, (previous, next) {
+      if (next == 5) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Counter is greater than 5'),
+          ),
+        );
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         title: const Text('State Provider '),
