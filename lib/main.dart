@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final nameProvider = Provider<String>((ref) {
-  return "Hello Yasin";
-});
+final counterProvider = StateProvider<int>(
+  (ref) => 0,
+);
 void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -23,87 +23,46 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-//CosumerWidget is a widget that can read a provider and rebuild when the provider changes.
-// class HomePage extends ConsumerWidget {
-//   const HomePage({super.key});
-//
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     final name=ref.watch(nameProvider);
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text("Riverpod Provider"),
-//       ),
-//       body:  Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             Text(
-//               name,
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 
-//Consumer is a widget that can read a provider and rebuild when the provider changes.
-// class HomePage extends StatelessWidget {
-//   const HomePage({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text("Riverpod Provider"),
-//       ),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//          Consumer(builder: (context,ref,child){
-//            final name=ref.watch(nameProvider);
-//            return Text(
-//              name,
-//            );
-//       } )
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-//ConsumerStatefulWidget is a widget that can read a provider and rebuild when the provider changes.
-class HomePage extends ConsumerStatefulWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends ConsumerState<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    final name = ref.watch(nameProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final counter = ref.watch(counterProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Riverpod Provider"),
+        title: const Text('State Provider '),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              ref.refresh(counterProvider);
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: [
+            const Text('You have pushed the button this many times:'),
             Text(
-             name,
+              counter.toString(),
+              style: const TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          ref.read(counterProvider.notifier).state++;
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
-
-
