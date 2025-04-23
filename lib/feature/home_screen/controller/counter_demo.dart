@@ -6,6 +6,3 @@ class CounterDemo extends StateNotifier<int> {
     state++;
   }
 }
-
-final counterProvider =
-    StateNotifierProvider<CounterDemo, int>((ref) => CounterDemo());
