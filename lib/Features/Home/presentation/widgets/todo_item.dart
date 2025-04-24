@@ -5,23 +5,27 @@ import 'package:riverpodtest/Features/Home/provider/todo_provider.dart';
 
 class TodoItem extends ConsumerWidget {
   final TodoModel todo;
-  const TodoItem(this.todo, {super.key});
+  const TodoItem(  this.todo, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ListTile(
-      title:   Text(todo.title,
+      title: Text(
+        todo.title,
         style: TextStyle(
-          decoration: todo.isDone
-              ? TextDecoration.lineThrough
-              : TextDecoration.none,
+          decoration:
+              todo.isDone ? TextDecoration.lineThrough : TextDecoration.none,
         ),
       ),
-      leading: Checkbox(value: todo.isDone, onChanged: (_) => ref.read(todoListProvider.notifier).toggle(todo.id)),
-
-      trailing: IconButton(onPressed: () {
-        ref.read(todoListProvider.notifier).remove(todo.id);
-      }, icon: const Icon(Icons.delete)),
+      leading: Checkbox(
+          value: todo.isDone,
+          onChanged: (_) =>
+              ref.read(todoListProvider.notifier).toggle(todo.id)),
+      trailing: IconButton(
+          onPressed: () {
+            ref.read(todoListProvider.notifier).remove(todo.id);
+          },
+          icon: const Icon(Icons.delete)),
     );
   }
 }

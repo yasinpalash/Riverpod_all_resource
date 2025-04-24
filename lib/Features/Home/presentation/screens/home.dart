@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpodtest/Core/widgets/custom_text_field.dart';
+import 'package:riverpodtest/Features/Home/presentation/widgets/todo_item.dart';
 import 'package:riverpodtest/Features/Home/provider/todo_provider.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -21,16 +22,28 @@ class HomeScreen extends ConsumerWidget {
             child: Row(
               children: [
                 Expanded(child: CustomTextField(controller: controller)),
-                IconButton(onPressed: () {
-                  if(controller.text.isNotEmpty){
-                    ref.read(todoListProvider.notifier).add(controller.text);
-                    controller.clear();
-                  }
-                }, icon: const Icon(Icons.add)),
+                IconButton(
+                    onPressed: () {
+                      if (controller.text.isNotEmpty) {
+                        ref
+                            .read(todoListProvider.notifier)
+                            .add(controller.text);
+                        controller.clear();
+                      }
+                    },
+                    icon: const Icon(Icons.add)),
               ],
             ),
           ),
-
+          Expanded(
+              child: ListView.separated(
+                  itemBuilder: (context, i) {
+                    return TodoItem(todos[i]);
+                  },
+                  separatorBuilder: (context, index) => SizedBox(
+                        height: 10,
+                      ),
+                  itemCount: todos.length))
         ],
       ),
     );
