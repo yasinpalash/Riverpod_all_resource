@@ -40,7 +40,7 @@ class HomeScreen extends ConsumerWidget {
                   itemBuilder: (context, i) {
                     return TodoItem(todos[i]);
                   },
-                  separatorBuilder: (context, index) => SizedBox(
+                  separatorBuilder: (context, index) => const SizedBox(
                         height: 10,
                       ),
                   itemCount: todos.length))
