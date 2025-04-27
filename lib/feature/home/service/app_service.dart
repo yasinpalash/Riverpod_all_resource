@@ -9,12 +9,17 @@ class ApiService {
 
   Future<UserModel> getUser() async {
     Response response = await get(Uri.parse(endpoint));
+
+    // Print the response body
+    print('Response Body: ${response.body}');
+
     if (response.statusCode == 200) {
       final result = jsonDecode(response.body);
-      return UserModel.fromJson(result); // Parse full UserModel, not just 'data'
+      return UserModel.fromJson(result);
     } else {
       throw Exception(response.reasonPhrase);
     }
   }
+
 }
 

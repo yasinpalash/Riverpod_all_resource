@@ -26,7 +26,7 @@ class HomeScreen extends ConsumerWidget {
           return ListView.builder(
             itemCount: userModel.data?.length ?? 0,
             itemBuilder: (context, index) {
-              final user = userModel.data![index]; // Access user data
+              final user = userModel.data![index];
 
               return ListTile(
                 leading: CircleAvatar(
